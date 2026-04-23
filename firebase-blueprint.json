@@ -1,0 +1,78 @@
+{
+  "entities": {
+    "Category": {
+      "title": "Category",
+      "description": "A category for stories",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "slug": { "type": "string" },
+        "theme": { "type": "string", "enum": ["default", "kids", "horror", "moral", "royal"] },
+        "imageUrl": { "type": "string", "format": "uri" },
+        "status": { "type": "boolean" }
+      },
+      "required": ["name", "slug", "theme", "imageUrl", "status"]
+    },
+    "Story": {
+      "title": "Story",
+      "description": "A story entry",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "slug": { "type": "string" },
+        "categoryId": { "type": "string" },
+        "theme": { "type": "string", "enum": ["default", "kids", "horror", "moral", "royal"] },
+        "language": { "type": "string", "enum": ["en", "hi"] },
+        "bannerUrl": { "type": "string", "format": "uri" },
+        "thumbnailUrl": { "type": "string", "format": "uri" },
+        "content": { "type": "string" },
+        "metaTitle": { "type": "string" },
+        "metaDescription": { "type": "string" },
+        "keywords": { "type": "string" },
+        "readingTime": { "type": "number" },
+        "views": { "type": "number" },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["title", "slug", "categoryId", "theme", "language", "bannerUrl", "thumbnailUrl", "content", "metaTitle", "metaDescription", "keywords", "readingTime", "views", "createdAt"]
+    },
+    "Settings": {
+      "title": "Settings",
+      "description": "Global site settings",
+      "type": "object",
+      "properties": {
+        "heroImageUrl": { "type": "string", "format": "uri" },
+        "socialLinks": { "type": "object" },
+        "adsense": { "type": "object" }
+      },
+      "required": ["heroImageUrl", "socialLinks", "adsense"]
+    },
+    "User": {
+      "title": "User",
+      "description": "A user profile, primarily for admin access",
+      "type": "object",
+      "properties": {
+        "role": { "type": "string", "enum": ["admin", "user"] },
+        "email": { "type": "string", "format": "email" }
+      },
+      "required": ["role", "email"]
+    }
+  },
+  "firestore": {
+    "/categories/{categoryId}": {
+      "schema": { "$ref": "#/entities/Category" },
+      "description": "Categories collection"
+    },
+    "/stories/{storyId}": {
+      "schema": { "$ref": "#/entities/Story" },
+      "description": "Stories collection"
+    },
+    "/settings/{settingId}": {
+      "schema": { "$ref": "#/entities/Settings" },
+      "description": "Settings collection"
+    },
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "Users collection"
+    }
+  }
+}
